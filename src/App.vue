@@ -13,8 +13,9 @@
     name: "App",
     created(){
       this.$store.dispatch('loardProducts');
+      this.$store.dispatch('loardBag');
     },
-    computed:  mapState([
+    computed: mapState([
       'productsInBag'
     ])
   

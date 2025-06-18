@@ -11,12 +11,17 @@ export default createStore({
     loardProducts( state, products){
       state.products = products
     },
+    loardBag( state, products){
+      state.productsInBag = products
+    },
     AddToBag( state, product){
       state.productsInBag.push(product)
+      localStorage.setItem('productsInBag', JSON.stringify(state.productsInBag))
     },
     RemoveFromBag( state, productId){
       const updatedBag = state.productsInBag.filter( item => productId != item.id)
       state.productsInBag = updatedBag
+      localStorage.setItem('productsInBag', JSON.stringify(state.productsInBag))
     }
   },
   actions: {
@@ -25,6 +30,12 @@ export default createStore({
         .then( response => {
           commit('loardProducts', response.data);
         })
+    },
+    loardBag({ commit }){
+
+        if(localStorage.getItem('productsInBag')) {
+          commit('loardBag', JSON.parse(localStorage.getItem('productsInBag')));
+        }
     },
     AddToBag( {commit}, product){
       commit('AddToBag', product)

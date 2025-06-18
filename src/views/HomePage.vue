@@ -15,7 +15,7 @@
           <button 
             v-else 
             class="remove"
-            @click="this.$store.dispatch('RemoveFromBag', product.id)"
+            @click="isRemoveToBag(product)"
           >
             Cancelar pedido
           </button>
@@ -41,6 +41,9 @@
       },
       isInBag(  product ){
         return this.productsInBag.find( item => item.id == product.id)
+      },
+      isRemoveToBag( product ){
+        return this.$store.dispatch('RemoveFromBag', product.id)
       }
    }
 

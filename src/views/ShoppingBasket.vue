@@ -1,30 +1,69 @@
 <template>
     <div class="basket">
       <div class="items">
-  
-        <div class="item">
-          <div class="remove">Remove item</div>
-          <div class="photo"><img src="https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg" alt=""></div>
-          <div class="description">Mens Casual Premium Slim Fit T-Shirts </div>
-          <div class="price">
-            <span class="quantity-area">
-              <button disabled="">-</button>
-              <span class="quantity">1</span>
-              <button>+</button>
-            </span>
-            <span class="amount">US$ 22.30</span>
-          </div>
-        </div>
-        <div class="grand-total"> Grand Total: US$ 22.30</div>
+
+        <template v-if="productsInBag.length">
+            <div 
+              class="item" 
+              v-for="product in productsInBag"
+              :key="product.product"
+            >
+              <div class="remove" @click="RemoveItem(product)">Removê item do carrinho</div>
+                <div class="photo">
+                  <img :src="product.image" alt="Imagem do pedido">
+                </div>
+              <div class="description">{{ product.title }}</div>
+              <div class="price">
+                  <span class="quantity-area">
+                    <button 
+                      :disabled="product.quantity <= 1" 
+                      @click="product.quantity--"
+                    >-</button>
+                    <span class="quantity">{{ product.quantity }}</span>
+                    <button
+                      @click="product.quantity++"
+                    >+</button>
+                  </span>
+                  <span class="amount">US$ {{ (product.price * product.quantity).toFixed(2) }}</span>
+              </div>
+
+            </div>
+            <div class="grand-total"> Grand Total: US$ {{ orderTotal() }}</div>
+
+        </template>
+
+        <template v-else>
+          <h1>Não há nenhum produto adicionado no carrinho!</h1>
+        </template>
   
       </div>
     </div>
   </template>
   
   <script>
-  
+  import { mapState } from 'vuex'
+
   export default {
     name: 'ShoppingBasket',
+
+    methods: {
+      RemoveItem(product){
+        return this.$store.dispatch('RemoveFromBag', product.id)
+      },
+
+      orderTotal(){
+        var total = 0;
+        this.productsInBag.forEach( item => {
+          total += item.price * item.quantity;
+        });
+        return total.toFixed(2);
+      }
+    
+    },
+    
+    computed: mapState([
+        'productsInBag'
+      ])
   }
   </script>
   
