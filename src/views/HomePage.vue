@@ -11,7 +11,7 @@
           <div class="product-image" :style="{ backgroundImage: 'url(' + product.image + ')'} "></div>
           <h4>{{ product.title }}</h4>
           <p class="price">{{ product.price.toFixed(2) }}</p>
-          <button v-if="!isInBag( product )" @click="AddToBag(product)">Add to bag</button>
+          <button v-if="!isInBag( product )" @click="AddToBag(product)">Adicionar á sacola</button>
           <button 
             v-else 
             class="remove"
