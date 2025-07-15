@@ -23,12 +23,12 @@
                     <button
                       @click="product.quantity++"
                     >+</button>
-                  </span>
+                  </span> <br>
                   <span class="amount">US$ {{ (product.price * product.quantity).toFixed(2) }}</span>
-              </div>
+              </div> 
 
             </div>
-            <div class="grand-total"> Grand Total: US$ {{ orderTotal() }}</div>
+            <div class="grand-total"> Valor Total: US$ {{ orderTotal() }}</div>
 
         </template>
 
