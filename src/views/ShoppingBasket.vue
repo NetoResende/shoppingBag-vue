@@ -28,7 +28,7 @@
               </div> 
 
             </div>
-            <div class="grand-total"> Valor Total: US$ {{ orderTotal() }}</div>
+            <div class="grand-total"> Total: US$ {{ orderTotal() }}</div>
 
         </template>
 
